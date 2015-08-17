@@ -1,5 +1,6 @@
 package com.wonders.xlab.unittest.sample.service;
 
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.wonders.xlab.unittest.sample.test.SpringTestCase;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ public class UserServiceTest extends SpringTestCase {
     private UserService userService;
 
     @Test
+    @DatabaseSetup("users-dataset.xml")
     public void testAddRolesToUser() throws Exception {
         System.out.println("userService = " + userService);
     }

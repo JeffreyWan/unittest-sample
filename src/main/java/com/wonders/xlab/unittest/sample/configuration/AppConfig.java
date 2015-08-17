@@ -1,6 +1,9 @@
 package com.wonders.xlab.unittest.sample.configuration;
 
 import com.wonders.xlab.unittest.sample.service.UserService;
+import org.dbunit.DatabaseUnitException;
+import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.IDatabaseConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
 
 /**
@@ -54,11 +59,19 @@ public class AppConfig {
     public DataSource testDataSource() {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
         dataSource.setDriverClass(org.h2.Driver.class);
-        dataSource.setUrl("jdbc:h2:mem:test");
+        dataSource.setUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
         dataSource.setUsername("sa");
         dataSource.setPassword("");
 
         return dataSource;
+    }
+
+    @Bean
+    @Profile("test")
+    public IDatabaseConnection dbUnitDatabaseConnection() throws SQLException, DatabaseUnitException {
+        Connection conn = dataSource.getConnection();
+        return new DatabaseConnection(conn);
+
     }
 
     @Bean
