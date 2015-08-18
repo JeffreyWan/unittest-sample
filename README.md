@@ -1,4 +1,4 @@
 # unittest-sample
 
-useage:
+usage:
       mvn -Dtest=UserServiceTest test
