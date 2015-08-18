@@ -21,6 +21,10 @@ public class Group implements Serializable {
 
     private boolean enabled;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    private Group parent;
+
     public long getId() {
         return id;
     }
@@ -52,4 +56,13 @@ public class Group implements Serializable {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    public Group getParent() {
+        return parent;
+    }
+
+    public void setParent(Group parent) {
+        this.parent = parent;
+    }
+
 }
