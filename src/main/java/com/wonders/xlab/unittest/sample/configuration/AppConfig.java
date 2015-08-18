@@ -1,9 +1,6 @@
 package com.wonders.xlab.unittest.sample.configuration;
 
 import com.wonders.xlab.unittest.sample.service.UserService;
-import org.dbunit.DatabaseUnitException;
-import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.IDatabaseConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +18,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Properties;
 
 /**
@@ -42,8 +37,8 @@ public class AppConfig {
     @Autowired
     private DataSource dataSource;
 
-    @Bean
     @Profile("production")
+    @Bean(name = "dataSource")
     public DataSource productionDataSource() {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
         dataSource.setDriverClass(com.mysql.jdbc.Driver.class);
@@ -54,8 +49,8 @@ public class AppConfig {
         return dataSource;
     }
 
-    @Bean
     @Profile("test")
+    @Bean(name = "dataSource")
     public DataSource testDataSource() {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
         dataSource.setDriverClass(org.h2.Driver.class);
@@ -64,14 +59,6 @@ public class AppConfig {
         dataSource.setPassword("");
 
         return dataSource;
-    }
-
-    @Bean
-    @Profile("test")
-    public IDatabaseConnection dbUnitDatabaseConnection() throws SQLException, DatabaseUnitException {
-        Connection conn = dataSource.getConnection();
-        return new DatabaseConnection(conn);
-
     }
 
     @Bean

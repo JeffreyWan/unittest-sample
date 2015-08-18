@@ -1,0 +1,6 @@
+<dataset>
+    <sec_user_role user_id="1" role_id="1" />
+    <sec_user_role user_id="1" role_id="3" />
+    <sec_user_role user_id="1" role_id="4" />
+    <sec_user_role user_id="1" role_id="5" />
+</dataset>

@@ -14,8 +14,8 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
 @ActiveProfiles("test")
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
 public abstract class SpringTestCase {
 
 }
